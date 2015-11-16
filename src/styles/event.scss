@@ -1,0 +1,35 @@
+
+.eventContainer {
+  position: relative;
+}
+.eventTitleContainer,
+.eventDetailsContainer {
+  position: absolute;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.39);
+  color: #FFFFFF;
+}
+
+.eventTitleContainer {
+  top: 0;
+}
+
+.eventDates {
+  list-style: none;
+}
+.eventDetailsContainer {
+  bottom: 0;
+}
+
+.eventActions {
+  padding-top: 20px;
+}
+.eventActions .eventButtons {
+  list-style: none;
+}
+.eventActions .eventButtons > li {
+  display: inline;
+}
+.eventActions .eventButtons > li:first-child {
+  padding-right:20px;
+}

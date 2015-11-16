@@ -1,0 +1,15 @@
+@import 'base';
+@import 'vendor/normalize';
+body{
+  margin-top:20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size:14px;
+  font-weight:300;
+}
+
+#title{
+  font-family: 'Lobster', cursive;
+  text-align: right;
+}
+
+@import 'event';
