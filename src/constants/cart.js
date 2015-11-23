@@ -1,8 +1,8 @@
 import { createConstants } from '../utils';
 
 export default createConstants(
-  'GET_EVENT',
-  'GOT_EVENT',
-  'GET_EVENTS',
-  'GOT_EVENTS'
+  'CART_ADD',
+  'CART_REMOVE',
+  'CART_TOTAL',
+  'CART_CLEAR'
 );
