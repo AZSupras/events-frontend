@@ -1,7 +1,5 @@
 import axios from 'axios';
 import lodash from 'lodash';
-
-import { API_URL, STRIPE_URL, STRIPE_KEY } from 'constants/app';
 import { STRIPE_GET_TOKEN, STRIPE_GOT_TOKEN, PAYMENT_PROCESS, PAYMENT_PROCESSED, PAYMENT_FAILED } from 'constants/checkout';
 import { CART_CLEAR } from 'constants/cart';
 
@@ -11,7 +9,7 @@ export default {
       const state = getState();
 
       dispatch({ type: STRIPE_GET_TOKEN, payload: { cart, checkout } });
-      const url = STRIPE_URL + '/tokens';
+      const url = CONFIG[process.env.NODE_ENV].STRIPE_URL + '/tokens';
       const exp = checkout.card.expiry.match(/.{1,2}/g);
       const card = {
         'card[number]': checkout.card.number,
@@ -31,7 +29,7 @@ export default {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer ' + STRIPE_KEY
+          'Authorization': 'Bearer ' + CONFIG[process.env.NODE_ENV].STRIPE_KEY
         }
       })
       .then((response) => {
@@ -43,7 +41,7 @@ export default {
       })
       .then((token) => {
         dispatch({ type: PAYMENT_PROCESS });
-        const url = API_URL + '/payment/process';
+        const url = CONFIG[process.env.NODE_ENV].API_URL + '/payment/process';
         axios.post(url, {
           attendee: {
             email: checkout.email,
