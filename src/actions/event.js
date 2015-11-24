@@ -7,7 +7,7 @@ export default {
   fetchEvent: function (params) {
     return dispatch => {
       const compiledParams = Object.assign({}, { sort: 'startDate DESC', limit: 30 }, params);
-      const url = CONFIG[process.env.NODE_ENV].API_URL + '/event/' + compiledParams.id;
+      const url = CONFIG.API_URL + '/event/' + compiledParams.id;
       dispatch({ type : GET_EVENT, params: compiledParams, url });
       axios.get(url, { params: compiledParams })
       .then((response) => {
@@ -29,7 +29,7 @@ export default {
   fetchEvents: function (params) {
     return dispatch => {
       const compiledParams = Object.assign({}, { sort: 'startDate DESC', limit: 30 }, params);
-      const url = (compiledParams.id) ? CONFIG[process.env.NODE_ENV].API_URL + '/event/' + compiledParams.id : CONFIG[process.env.NODE_ENV].API_URL + '/event';
+      const url = (compiledParams.id) ? CONFIG.API_URL + '/event/' + compiledParams.id : CONFIG.API_URL + '/event';
       dispatch({ type : GET_EVENTS, params: compiledParams, url });
       axios.get(url, { params: compiledParams })
       .then((response) => {

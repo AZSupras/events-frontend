@@ -13,20 +13,11 @@ webpackConfig.module.loaders = webpackConfig.module.loaders.map(loader => {
 
   return loader;
 });
-//
-// webpackConfig.module.loaders.push({
-//   test: /constants\/app.js$/, loader: StringReplacePlugin.replace({
-//     replacements: [
-//       {
-//         pattern: 'API_URL = \'http://localhost:1337/v1\';'
-//       }
-//     ]
-//   })
-// });
 
 webpackConfig.plugins.push(
   new ExtractTextPlugin('[name].[contenthash].css'),
   new webpack.optimize.UglifyJsPlugin({
+    sourceMap: true,
     compress : {
       'unused'    : true,
       'dead_code' : true
