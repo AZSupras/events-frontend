@@ -1,5 +1,5 @@
 import { createReducer }     from '../utils';
-import { GET_EVENT, GOT_EVENT, GET_EVENTS, GOT_EVENTS } from 'constants/event';
+import { GET_EVENT, GOT_EVENT, GET_EVENTS, GOT_EVENTS, NO_EVENT_DATA } from 'constants/event';
 
 const initialState = {
   isFetching: false,
@@ -37,6 +37,12 @@ export default createReducer(initialState, {
       results: action.results, // this could be an array OR object depending on meta
       meta: action.meta,
       hasResults: action.hasResults
+    };
+  },
+  [NO_EVENT_DATA] : function (state, action) {
+    return {
+      ...state,
+      isFetching:false
     };
   }
 });

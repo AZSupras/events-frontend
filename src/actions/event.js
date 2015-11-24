@@ -1,6 +1,7 @@
 import axios from 'axios';
 import lodash from 'lodash';
-import { GET_EVENT, GOT_EVENT, GET_EVENTS, GOT_EVENTS } from 'constants/event';
+import { GENERAL_ERROR } from 'constants/app';
+import { GET_EVENT, GOT_EVENT, GET_EVENTS, GOT_EVENTS, NO_EVENT_DATA } from 'constants/event';
 
 export default {
   fetchEvent: function (params) {
@@ -53,8 +54,9 @@ export default {
         dispatch(payload);
       })
       .catch((error) => {
-        console.error(error);
+        dispatch({ type: GENERAL_ERROR, payload: { error } });
+        dispatch({ type: NO_EVENT_DATA });
       });
-    }
+    };
   }
 };

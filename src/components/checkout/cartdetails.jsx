@@ -56,7 +56,7 @@ export default class CartDetails extends React.Component {
   }
 
   render () {
-    const { cart, handleRemoveItem } = this.props;
+    const { cart } = this.props;
     const self = this;
 
     const _cartItems = cart.items.map(function (event, index) {
@@ -92,8 +92,8 @@ export default class CartDetails extends React.Component {
         </tr>);
       });
 
-      return (<tbody>
-        <tr key={index}>
+      return (<tbody key={index}>
+        <tr>
           <td colSpan='5'><strong>{event.name}</strong></td>
         </tr>
         {eventItems}

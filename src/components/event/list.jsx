@@ -15,7 +15,6 @@ export default class EventList extends React.Component {
     const { results, hasResults, isFetching } = this.props.events;
     const _events = results.map(function (event, index) {
       const classNames = (index > 0) ? 'col-md-4 events' : 'col-xs-12 events firstEvent';
-
       const _eventPrices = event.pricing.map(function (pricing, priceIndex) {
         return (<li key={priceIndex}>{pricing.name} - ${pricing.price}</li>);
       });
@@ -51,23 +50,30 @@ export default class EventList extends React.Component {
             </div>
           </div>
           <div className='eventImageContainer'>
-            <img className='img-responsive' src={event.coverImage.url} />
+            <img className='img-responsive' src={(event.coverImage) ? event.coverImage.url : 'http://lorempixel.com/940/600/'} />
           </div>
         </div>
       </div>);
     });
 
+
     return (<div>
-      <h1>Event List</h1>
-      {isFetching &&
-        <p className='well lead text-center'>Loading Events</p>
-      }
-      {!hasResults && !isFetching
-        ? <p className='well lead text-center'>No Upcoming Events</p>
-        : <section className='eventsList'>
-          {_events}
-        </section>
-      }
+      <div className='row'>
+        <div className='col-xs-12'>
+          <h1>Event List</h1>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col-xs-12'>
+          {!hasResults && !isFetching
+            ? <p className='well lead text-center'>No Upcoming Events</p>
+            :
+              <section className='eventsList'>
+                {_events}
+              </section>
+          }
+        </div>
+      </div>
     </div>);
   }
 }

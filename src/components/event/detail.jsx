@@ -1,9 +1,12 @@
 import React                  from 'react';
 import moment                 from 'moment';
-import lodash                 from 'lodash';
-import { Link }               from 'react-router';
 
-export default class EventList extends React.Component {
+
+import { CoverImage }         from './coverimage';
+import { ImageGallery }       from './imagegallery';
+import { CartBlock }          from '../cart/cartblock';
+
+export default class EventDetail extends React.Component {
   static propTypes = {
     item       : React.PropTypes.any.isRequired,
     cart       : React.PropTypes.any.isRequired,
@@ -15,17 +18,14 @@ export default class EventList extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      showCheckout: false
-    };
   }
 
-  _handleAddToCart (item, pricing) {
-    this.props.addToCart(item, pricing);
+  addToCart (item, price) {
+    this.props.addToCart(item, price);
   }
 
-  _handleRemoveFromCart (item, pricing) {
-    this.props.removeFromCart(item, pricing);
+  removeFromCart (item, price) {
+    this.props.removeFromCart(item, price);
   }
 
   render () {
@@ -37,51 +37,10 @@ export default class EventList extends React.Component {
       return moment.duration(startDate - endDate).humanize();
     }
 
-    function isCartEmpty () {
-      const eventIndex = lodash.findIndex(cart.items, { id: item.id });
-      if ( eventIndex < 0 ) {
-        return true;
-      } else {
-        return ( cart.items[eventIndex].items.length <= 0 ) ? true : false;
-      }
-    }
-
-    function isInCart (pricing) {
-      const eventIndex = lodash.findIndex(cart.items, { id: item.id });
-      if ( eventIndex < 0 ) {
-        return false;
-      } else {
-        const itemIndex = lodash.findIndex(cart.items[eventIndex].items, { name: pricing.name });
-        return ( itemIndex >= 0 ) ? true : false;
-      }
-    }
-
-    const _images = item.images.map(function (image, imageIndex) {
-      return (<div key={imageIndex} className='col-xs-12 col-md-6 col-lg-3'>
-        <a href={image.url} target='_blank' className='thumbnail'><img src={image.url} className='img-responsive'/></a>
-      </div>);
-    });
 
     if ( isFetching ) {
       return (<p className='well lead text-center'>Loading Events</p>);
     } else if ( hasResults && !isFetching ) {
-      const _eventPrices = item.pricing.map(function (pricing, priceIndex) {
-        return (<li key={priceIndex}>
-          {pricing.name} - $ {pricing.price}
-          {isInCart(pricing) ?
-              <button className='btn btn-danger btn-md' onClick={this._handleRemoveFromCart.bind(this, item, pricing)}><i className='fa fa-md fa-trash'></i></button>
-            :
-            <button
-            className='btn btn-success btn-md'
-            disabled={isInCart(pricing)}
-            onClick={this._handleAddToCart.bind(this, item, pricing)}
-            >
-              Add to Cart
-            </button>
-          }
-        </li>);
-      }.bind(this));
-
       return (<div>
         <div className='container'>
           <div className='row'>
@@ -91,23 +50,13 @@ export default class EventList extends React.Component {
           </div>
         </div>
         { item.coverImage &&
-          <div className='eventCoverImageContainer'>
-            <div className='container'>
-              <div className='row'>
-                <div className='col-lg-12'>
-                  <img src={item.coverImage.url} className='img-responsive' />
-                </div>
-              </div>
-            </div>
-          </div>
+          <CoverImage image={item.coverImage} />
         }
         <div className='eventDetailContainer'>
           <div className='container'>
             <section className='eventList'>
               <div className='col-md-8'>
-                <div className='col-lg-12'>
-                  <div dangerouslySetInnerHTML={{__html: item.content }} />
-                </div>
+                <div dangerouslySetInnerHTML={{__html: item.content }} />
               </div>
               <div className='col-md-4 sidebar'>
                 <aside className='when'>
@@ -125,18 +74,13 @@ export default class EventList extends React.Component {
                     <address><strong>{item.location.name}</strong> <br />{item.location.address}<br /> {item.location.city}, {item.location.state} {item.location.zipCode}</address>
                   </div>
                 </aside>
-                <aside className='pricing'>
-                  <h2>Pricing</h2>
-                  <ul className='pricingList'>
-                    {_eventPrices}
-                  </ul>
-                  {!isCartEmpty() &&
-                    <span>
-                      <hr />
-                      <Link to={`/checkout`} className='btn btn-block btn-primary'>Checkout</Link>
-                    </span>
-                  }
-                </aside>
+                <CartBlock
+                  prices={item.pricing}
+                  cart={cart}
+                  eventId={item.id}
+                  addToCart={this.addToCart.bind(this, item)}
+                  removeFromCart={this.removeFromCart.bind(this, item)}
+                />
               </div>
             </section>
           </div>
@@ -145,7 +89,7 @@ export default class EventList extends React.Component {
           <div className='imageGallery'>
             <div className='container'>
               <div className='row'>
-                {_images}
+                <ImageGallery images={item.images} />
               </div>
             </div>
           </div>

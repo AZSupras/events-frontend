@@ -38,9 +38,6 @@ export default class CoreLayout extends React.Component {
       <div className='view-container'>
         {this.props.children}
       </div>
-      <div className='footer-container'>
-        <Footer />
-      </div>
     </div>);
   }
 }
