@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-starter-kit",
-  "version": "0.17.0",
-  "description": "Get started with React, Redux, and React-Router!",
+  "name": "azsupras-events-frontend",
+  "version": "1.0.0",
+  "description": "AZSupras Event System Backend, built on React & Redux",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
