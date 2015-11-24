@@ -12,9 +12,4 @@ const node = (
         debugExternal={__DEBUG_NW__} />
 );
 
-if(__DEV__) {
-  console.log(CONFIG);
-  console.log(process.env.NODE_ENV);
-}
-
 ReactDOM.render(node, target);

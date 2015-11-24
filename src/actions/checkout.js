@@ -9,7 +9,7 @@ export default {
       const state = getState();
 
       dispatch({ type: STRIPE_GET_TOKEN, payload: { cart, checkout } });
-      const url = CONFIG[process.env.NODE_ENV].STRIPE_URL + '/tokens';
+      const url = CONFIG.STRIPE_URL + '/tokens';
       const exp = checkout.card.expiry.match(/.{1,2}/g);
       const card = {
         'card[number]': checkout.card.number,
@@ -29,7 +29,7 @@ export default {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer ' + CONFIG[process.env.NODE_ENV].STRIPE_KEY
+          'Authorization': 'Bearer ' + CONFIG.STRIPE_KEY
         }
       })
       .then((response) => {
@@ -41,7 +41,7 @@ export default {
       })
       .then((token) => {
         dispatch({ type: PAYMENT_PROCESS });
-        const url = CONFIG[process.env.NODE_ENV].API_URL + '/payment/process';
+        const url = CONFIG.API_URL + '/payment/process';
         axios.post(url, {
           attendee: {
             email: checkout.email,
