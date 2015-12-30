@@ -12,9 +12,9 @@ export default {
       dispatch({ type: CART_TOTAL });
     };
   },
-  removeFromCart: function (itemIndex, eventIndex) {
+  removeFromCart: function (payload) {
     return dispatch => {
-      dispatch({ type: CART_REMOVE, payload: { itemIndex, eventIndex } });
+      dispatch({ type: CART_REMOVE, payload });
       dispatch({ type: CART_TOTAL });
     };
   }

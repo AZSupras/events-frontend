@@ -46,9 +46,9 @@ export class CheckoutView extends React.Component {
     dispatch( cartActions.updateQty() );
   }
 
-  removeItem (itemIndex, eventIndex) {
+  removeItem (event, pricing) {
     const { dispatch } = this.context.store;
-    dispatch( cartActions.removeFromCart(itemIndex, eventIndex) );
+    dispatch( cartActions.removeFromCart({ event, pricing }) );
   }
 
   processCheckout (checkout) {

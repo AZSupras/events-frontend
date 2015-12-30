@@ -13,6 +13,8 @@ export default class CartDetails extends React.Component {
     this.state = {
       updatingQty: false,
       itemIndex: null,
+      event: {},
+      pricing: {},
       newQty: null,
       eventIndex: null
     };
@@ -82,13 +84,13 @@ export default class CartDetails extends React.Component {
                   </div>
                 </div>
               : <p>
-                {item.qty} <a href='#' onClick={self.editQty.bind(self, itemIndex, index)}>Edit</a> <a href='#' onClick={self.removeItem.bind(self, itemIndex, index)}>Remove</a>
+                {item.qty} <a href='#' onClick={self.editQty.bind(self, itemIndex, index)}>Edit</a> <a href='#' onClick={self.removeItem.bind(self, event, item)}>Remove</a>
                 </p>
             }
             </div>
           </td>
-          <td>${item.itemCost}</td>
-          <td>${(item.unitCost * item.qty)}</td>
+          <td>${item.itemCost.toFixed(2)}</td>
+          <td>${(item.unitCost * item.qty).toFixed(2)}</td>
         </tr>);
       });
 

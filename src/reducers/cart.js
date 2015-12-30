@@ -11,9 +11,12 @@ const initialState = {
 export default createReducer(initialState, {
   [CART_REMOVE] : function (state, action) {
     let newState = Object.assign({}, state);
-    newState.items[action.eventIndex].items.splice(action.itemIndex, 1);
+    const eventIndex = lodash.findIndex(newState.items, { id: action.event.id });
+    const itemIndex = lodash.findIndex(newState.items[eventIndex].items, { name: action.pricing.name });
 
-    if (newState.items[action.eventIndex].items.length <= 0) {
+    newState.items[eventIndex].items.splice(itemIndex, 1);
+
+    if (newState.items[eventIndex].items.length <= 0) {
       newState = initialState;
     }
 
