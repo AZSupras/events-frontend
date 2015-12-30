@@ -66,7 +66,7 @@ config.set('globals', {
   '__PROD__'     : config.get('env') === 'production',
   '__DEBUG__'    : config.get('env') === 'development' && !argv.no_debug,
   '__DEBUG_NW__' : !!argv.nw,
-  CONFIG: JSON.stringify(pkg.configs[config.get('env')]),
+  CONFIG: JSON.stringify(pkg.configs[pkg.env]),
 });
 
 // ------------------------------------
