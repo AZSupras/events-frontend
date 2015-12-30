@@ -15,7 +15,7 @@ export class CoverImage extends React.Component {
       <div className='container'>
         <div className='row'>
           <div className='col-lg-12'>
-            <img src={image} className='img-responsive' />
+            <img src={image.url} className='img-responsive' />
           </div>
         </div>
       </div>
