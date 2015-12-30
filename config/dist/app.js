@@ -17447,9 +17447,9 @@ webpackJsonp([1],[
 	      dispatch({ type: _constantsCart.CART_TOTAL });
 	    };
 	  },
-	  removeFromCart: function removeFromCart(payload) {
+	  removeFromCart: function removeFromCart(itemIndex, eventIndex) {
 	    return function (dispatch) {
-	      dispatch({ type: _constantsCart.CART_REMOVE, payload: payload });
+	      dispatch({ type: _constantsCart.CART_REMOVE, payload: { itemIndex: itemIndex, eventIndex: eventIndex } });
 	      dispatch({ type: _constantsCart.CART_TOTAL });
 	    };
 	  }
@@ -17486,7 +17486,7 @@ webpackJsonp([1],[
 	  fetchEvent: function fetchEvent(params) {
 	    return function (dispatch) {
 	      var compiledParams = _Object$assign({}, { sort: 'startDate DESC', limit: 30 }, params);
-	      var url = ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/event/' + compiledParams.id;
+	      var url = ({"API_URL":"http://localhost:1337/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_test_BzODTyoTCgxiZi6q4c7edsBe"}).API_URL + '/event/' + compiledParams.id;
 	      dispatch({ type: _constantsEvent.GET_EVENT, params: compiledParams, url: url });
 	      _axios2['default'].get(url, { params: compiledParams }).then(function (response) {
 	        var payload = {
@@ -17506,7 +17506,7 @@ webpackJsonp([1],[
 	  fetchEvents: function fetchEvents(params) {
 	    return function (dispatch) {
 	      var compiledParams = _Object$assign({}, { sort: 'startDate DESC', limit: 30 }, params);
-	      var url = compiledParams.id ? ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/event/' + compiledParams.id : ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/event';
+	      var url = compiledParams.id ? ({"API_URL":"http://localhost:1337/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_test_BzODTyoTCgxiZi6q4c7edsBe"}).API_URL + '/event/' + compiledParams.id : ({"API_URL":"http://localhost:1337/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_test_BzODTyoTCgxiZi6q4c7edsBe"}).API_URL + '/event';
 	      dispatch({ type: _constantsEvent.GET_EVENTS, params: compiledParams, url: url });
 	      _axios2['default'].get(url, { params: compiledParams }).then(function (response) {
 	        var hasResults = function hasResults(result) {
@@ -27236,7 +27236,7 @@ webpackJsonp([1],[
 	      var state = getState();
 	
 	      dispatch({ type: _constantsCheckout.STRIPE_GET_TOKEN, payload: { cart: cart, checkout: checkout } });
-	      var url = ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).STRIPE_URL + '/tokens';
+	      var url = ({"API_URL":"http://localhost:1337/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_test_BzODTyoTCgxiZi6q4c7edsBe"}).STRIPE_URL + '/tokens';
 	      var exp = checkout.card.expiry.match(/.{1,2}/g);
 	      var card = {
 	        'card[number]': checkout.card.number,
@@ -27256,7 +27256,7 @@ webpackJsonp([1],[
 	        headers: {
 	          'Accept': 'application/json',
 	          'Content-Type': 'application/x-www-form-urlencoded',
-	          'Authorization': 'Bearer ' + ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).STRIPE_KEY
+	          'Authorization': 'Bearer ' + ({"API_URL":"http://localhost:1337/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_test_BzODTyoTCgxiZi6q4c7edsBe"}).STRIPE_KEY
 	        }
 	      }).then(function (response) {
 	        var payload = {
@@ -27266,7 +27266,7 @@ webpackJsonp([1],[
 	        return response.data.id;
 	      }).then(function (token) {
 	        dispatch({ type: _constantsCheckout.PAYMENT_PROCESS });
-	        var url = ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/payment/process';
+	        var url = ({"API_URL":"http://localhost:1337/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_test_BzODTyoTCgxiZi6q4c7edsBe"}).API_URL + '/payment/process';
 	        _axios2['default'].post(url, {
 	          attendee: {
 	            email: checkout.email,
@@ -27394,7 +27394,7 @@ webpackJsonp([1],[
 	    value: {
 	      prices: _react2['default'].PropTypes.any.isRequired,
 	      cart: _react2['default'].PropTypes.any.isRequired,
-	      eventId: _react2['default'].PropTypes.string.isRequired,
+	      eventId: _react2['default'].PropTypes.number.isRequired,
 	      addToCart: _react2['default'].PropTypes.func.isRequired,
 	      removeFromCart: _react2['default'].PropTypes.func.isRequired
 	    },
@@ -27663,8 +27663,6 @@ webpackJsonp([1],[
 	    this.state = {
 	      updatingQty: false,
 	      itemIndex: null,
-	      event: {},
-	      pricing: {},
 	      newQty: null,
 	      eventIndex: null
 	    };
@@ -27780,7 +27778,7 @@ webpackJsonp([1],[
 	                  ' ',
 	                  _react2['default'].createElement(
 	                    'a',
-	                    { href: '#', onClick: self.removeItem.bind(self, event, item) },
+	                    { href: '#', onClick: self.removeItem.bind(self, itemIndex, index) },
 	                    'Remove'
 	                  )
 	                )
@@ -27790,13 +27788,13 @@ webpackJsonp([1],[
 	              'td',
 	              null,
 	              '$',
-	              item.itemCost.toFixed(2)
+	              item.itemCost
 	            ),
 	            _react2['default'].createElement(
 	              'td',
 	              null,
 	              '$',
-	              (item.unitCost * item.qty).toFixed(2)
+	              item.unitCost * item.qty
 	            )
 	          );
 	        });
@@ -28371,7 +28369,7 @@ webpackJsonp([1],[
 	            _react2['default'].createElement(
 	              'div',
 	              { className: 'col-lg-12' },
-	              _react2['default'].createElement('img', { src: image.url, className: 'img-responsive' })
+	              _react2['default'].createElement('img', { src: image, className: 'img-responsive' })
 	            )
 	          )
 	        )
@@ -29438,12 +29436,9 @@ webpackJsonp([1],[
 	
 	exports['default'] = (0, _utils.createReducer)(initialState, (_createReducer = {}, _defineProperty(_createReducer, _constantsCart.CART_REMOVE, function (state, action) {
 	  var newState = _Object$assign({}, state);
-	  var eventIndex = _lodash2['default'].findIndex(newState.items, { id: action.event.id });
-	  var itemIndex = _lodash2['default'].findIndex(newState.items[eventIndex].items, { name: action.pricing.name });
+	  newState.items[action.eventIndex].items.splice(action.itemIndex, 1);
 	
-	  newState.items[eventIndex].items.splice(itemIndex, 1);
-	
-	  if (newState.items[eventIndex].items.length <= 0) {
+	  if (newState.items[action.eventIndex].items.length <= 0) {
 	    newState = initialState;
 	  }
 	
@@ -29844,10 +29839,10 @@ webpackJsonp([1],[
 	    }
 	  }, {
 	    key: 'removeItem',
-	    value: function removeItem(event, pricing) {
+	    value: function removeItem(itemIndex, eventIndex) {
 	      var dispatch = this.context.store.dispatch;
 	
-	      dispatch(_actionsCart2['default'].removeFromCart({ event: event, pricing: pricing }));
+	      dispatch(_actionsCart2['default'].removeFromCart(itemIndex, eventIndex));
 	    }
 	  }, {
 	    key: 'processCheckout',

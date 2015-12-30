@@ -50,7 +50,7 @@ export class EventView extends React.Component {
 
   _removeFromCart (event, pricing) {
     const { dispatch } = this.context.store;
-    dispatch( cartActions.removeFromCart({event, pricing}) );
+    dispatch( cartActions.removeFromCart({ event, pricing }) );
   }
 
   render () {

@@ -6,7 +6,7 @@ export class CartBlock extends React.Component {
   static propTypes = {
     prices         : React.PropTypes.any.isRequired,
     cart           : React.PropTypes.any.isRequired,
-    eventId        : React.PropTypes.number.isRequired,
+    eventId        : React.PropTypes.string.isRequired,
     addToCart      : React.PropTypes.func.isRequired,
     removeFromCart : React.PropTypes.func.isRequired
   }
