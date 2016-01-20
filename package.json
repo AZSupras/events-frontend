@@ -1,6 +1,6 @@
 {
   "name": "azsupras-events-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AZSupras Event System Backend, built on React & Redux",
   "main": "index.js",
   "scripts": {
