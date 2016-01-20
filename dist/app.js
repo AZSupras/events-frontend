@@ -17486,7 +17486,7 @@ webpackJsonp([1],[
 	  fetchEvent: function fetchEvent(params) {
 	    return function (dispatch) {
 	      var compiledParams = _Object$assign({}, { sort: 'startDate DESC', limit: 30 }, params);
-	      var url = (undefined).API_URL + '/event/' + compiledParams.id;
+	      var url = ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/event/' + compiledParams.id;
 	      dispatch({ type: _constantsEvent.GET_EVENT, params: compiledParams, url: url });
 	      _axios2['default'].get(url, { params: compiledParams }).then(function (response) {
 	        var payload = {
@@ -17506,7 +17506,7 @@ webpackJsonp([1],[
 	  fetchEvents: function fetchEvents(params) {
 	    return function (dispatch) {
 	      var compiledParams = _Object$assign({}, { sort: 'startDate DESC', limit: 30 }, params);
-	      var url = compiledParams.id ? (undefined).API_URL + '/event/' + compiledParams.id : (undefined).API_URL + '/event';
+	      var url = compiledParams.id ? ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/event/' + compiledParams.id : ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/event';
 	      dispatch({ type: _constantsEvent.GET_EVENTS, params: compiledParams, url: url });
 	      _axios2['default'].get(url, { params: compiledParams }).then(function (response) {
 	        var hasResults = function hasResults(result) {
@@ -27236,7 +27236,7 @@ webpackJsonp([1],[
 	      var state = getState();
 	
 	      dispatch({ type: _constantsCheckout.STRIPE_GET_TOKEN, payload: { cart: cart, checkout: checkout } });
-	      var url = (undefined).STRIPE_URL + '/tokens';
+	      var url = ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).STRIPE_URL + '/tokens';
 	      var exp = checkout.card.expiry.match(/.{1,2}/g);
 	      var card = {
 	        'card[number]': checkout.card.number,
@@ -27256,7 +27256,7 @@ webpackJsonp([1],[
 	        headers: {
 	          'Accept': 'application/json',
 	          'Content-Type': 'application/x-www-form-urlencoded',
-	          'Authorization': 'Bearer ' + (undefined).STRIPE_KEY
+	          'Authorization': 'Bearer ' + ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).STRIPE_KEY
 	        }
 	      }).then(function (response) {
 	        var payload = {
@@ -27266,7 +27266,7 @@ webpackJsonp([1],[
 	        return response.data.id;
 	      }).then(function (token) {
 	        dispatch({ type: _constantsCheckout.PAYMENT_PROCESS });
-	        var url = (undefined).API_URL + '/payment/process';
+	        var url = ({"API_URL":"https://api.azsupras.com/v1","STRIPE_URL":"https://api.stripe.com/v1","STRIPE_KEY":"pk_live_DCUKCkEj7BIihDCl6b8dypKf"}).API_URL + '/payment/process';
 	        _axios2['default'].post(url, {
 	          attendee: {
 	            email: checkout.email,
