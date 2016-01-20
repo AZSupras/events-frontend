@@ -45,12 +45,11 @@ export default class EventList extends React.Component {
               }
               <ul className='eventButtons'>
                 <li><Link to={`/event/${event.id}`} className='btn btn-primary'>Read More...</Link></li>
-                <li><button className='btn btn-success'>Order Now</button></li>
               </ul>
             </div>
           </div>
           <div className='eventImageContainer'>
-            <img className='img-responsive' src={(event.coverImage) ? event.coverImage.url : 'http://lorempixel.com/940/600/'} />
+            <img className='img-responsive' src={(event.coverImage) ? event.coverImage.url : 'https://placeholdit.imgix.net/~text?txtsize=88&txt=940%C3%97600&w=1110&h=300'} />
           </div>
         </div>
       </div>);
